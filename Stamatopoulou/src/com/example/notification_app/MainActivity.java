@@ -1,0 +1,74 @@
+package com.example.notification_app;
+
+
+import android.os.Bundle;
+import android.os.Message;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends Activity {
+
+	Button clickme;
+	NotificationManager nm;
+	int uniqueID = 1;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		clickme = (Button) findViewById(R.id.bclick);
+		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		nm.cancel(uniqueID);
+	
+		clickme.setOnClickListener(new View.OnClickListener() {
+		public void onClick(View v) {
+		//Όταν παταμε το κουμπί εκτελείται οτι υπάρχε μεσα στην συνάρτηση OnClick
+	   	//Εδώ καλούμε την συνάρτηση Notify
+	    
+			String notification = notifyfunc();
+			
+			//Η μεταβλητή notification θα εχει οτι είχε η μεταβλητή title μέσα στην συνάρτηση notify
+		}});
+	
+	
+	
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	//Εδω δηλώνουμε τη συνάρτηση Notify, τύπου String
+
+	public String notifyfunc() {
+		
+		Intent intent = new Intent(MainActivity.this, MainActivity.class);
+		PendingIntent pi = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
+		
+		String body = "Hello!! You made it.";
+		String title = "Worked !";
+		
+		Notification n = new Notification(R.drawable.ic_launcher, body, System.currentTimeMillis());
+		n.setLatestEventInfo(MainActivity.this, title, body, pi);
+		n.defaults = Notification.DEFAULT_ALL;
+		nm.notify(uniqueID, n);
+		
+		//Μπορουμε να του δώσουμε την μεταβλητη title που είναι τύπου String
+		return title;
+		
+		//Ή να του δώσουμε κείμενο χωρίς να υπάρχει μεταβλητή π.χ return "Hello World";
+		
+		
+		
+	}
+
+}
