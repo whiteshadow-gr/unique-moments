@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Unique Moments</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_activity_contacts">ActivityContacts</string>
+    <string name="title_activity_activity_contact_list">ActivityContactList</string>
+    <string name="title_activity_activity_daily_events">ActivityDailyEvents</string>
+    <string name="title_activity_activity_calendar">ActivityCalendar</string>
+    <string name="title_activity_activity_manage_events">ActivityManageEvents</string>
+    <string name="title_activity_activity_create_contact">ActivityCreateContact</string>
+    <string name="title_activity_activity_contact_profile">ActivityContactProfile</string>
+
+</resources>
