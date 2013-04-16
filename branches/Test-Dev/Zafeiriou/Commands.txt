@@ -1,0 +1,4 @@
+adb push C:\Users\Stef\workspace\UITesting\bin\UItesting.jar /data/local/tmp/
+
+
+adb shell uiautomator runtest UItesting.jar -c com.CalendarNamedaysTest
