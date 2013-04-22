@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="C:/Users/user/Desktop/tl2/adt-bundle-windows-x86-20130219/sdk/platforms/android-17/android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user/Desktop/tl2/adt-bundle-windows-x86-20130219/sdk/platforms/android-17/uiautomator.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
