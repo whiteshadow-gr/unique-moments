@@ -1,1 +1,0 @@
-adb push C:\Users\giannis\workspace\myproject\bin\myproject.jar /data/local/tmp/

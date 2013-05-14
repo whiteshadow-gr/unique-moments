@@ -1,1 +1,0 @@
-adb shell uiautomator runtest myproject.jar -c AddEventTest
