@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="Unique Moments">
+
+    <!-- * * * * * * * * * * * * * * * * -->
+    <!-- * * * * * Properties * * * * *  -->
+    <!-- * * * * * * * * * * * * * * * * -->
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <property name="android-tools" value="${sdk-location}/tools" />
+    
+    <!-- Input directories -->
+    <property name="source-folder" value="src" />
+    <property name="gen-folder" value="gen" />
+    <property name="resource-folder" value="res" />
+    <property name="asset-folder" value="assets" />
+    <property name="source-location" value="${basedir}/${source-folder}" />
+    
+    <!-- Output directories -->
+    <property name="gen-folder" value="gen" />
+    <property name="out-folder" value="bin" />
+    <property name="out-classes" value="${out-folder}/classes" />
+    <property name="out-classes-location" value="${basedir}/${out-classes}"/>
+
+    <!-- The final package file to generate -->
+    <property name="out-debug-package" value="${out-folder}/${ant.project.name}-debug.apk"/>
+    <property name="out-unsigned-package" value="${out-folder}/${ant.project.name}-unsigned.apk"/>
+    <property name="out-signed-package" value="${out-folder}/${ant.project.name}-signed.apk"/>
+    
+
+    <path id="android.antlibs">
+        <pathelement path="${sdk-location}/tools/lib/anttasks.jar" />
+        <pathelement path="${sdk-location}/tools/lib/sdklib.jar" />
+        <pathelement path="${sdk-location}/tools/lib/androidprefs.jar" />
+        <pathelement path="${sdk-location}/tools/lib/apkbuilder.jar" />
+        <pathelement path="${sdk-location}/tools/lib/jarutils.jar" />
+    </path>
+
+    <!-- * * * * * * * * * * * * * * * * -->
+    <!-- * * * Remove Ant Warning * * *  -->
+    <!-- * * * * * * * * * * * * * * * * -->
+    <presetdef name="javac">
+        <javac includeantruntime="false" />
+    </presetdef> 
+
+    <!-- * * * * * * * * * * * * * * * * -->
+    <!-- * * * * * Classpaths * * * * *  -->
+    <!-- * * * * * * * * * * * * * * * * -->
+    <path id="Android 4.2.2.libraryclasspath">
+        <pathelement location="../sdk/platforms/android-17/android.jar"/>
+    </path>
+    <path id="Android Dependencies.libraryclasspath">
+        <pathelement location="libs/android-support-v4.jar"/>
+    </path>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="../eclipse/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
+        <pathelement location="../eclipse/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+    </path>
+    <path id="Unique Moments.classpath">
+    <path refid="Android 4.2.2.libraryclasspath"/>
+    <path refid="Android Dependencies.libraryclasspath"/>
+    <path refid="JUnit 4.libraryclasspath"/>
+        <pathelement location="bin/classes"/>
+    </path>
+
+    <!-- * * * * * * * * * * * * * * -->
+    <!-- * * * * * Targets * * * * * -->
+    <!-- * * * * * * * * * * * * * * -->
+    
+    <!-- Cleaning -->
+    <target name="preclean"/>
+    
+    <target name="cleanall" depends="clean"/>
+
+    <!-- Init -->
+    <target name="init">
+        <mkdir dir="bin/classes"/>
+        <copy includeemptydirs="false" todir="bin/classes">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin/classes">
+            <fileset dir="gen">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="init-eclipse-compiler" description="copy Eclipse compiler jars to ant lib directory">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+
+    <!-- Create the output directories -->
+    <target name="dirs">
+        <echo>Creating output directories if needed</echo>
+        <mkdir dir="${resource-folder}" />
+        <mkdir dir="${external-libs-folder}" />
+        <mkdir dir="${gen-folder}" />
+        <mkdir dir="${out-folder}" />
+        <mkdir dir="${out-classes}" />
+    </target>
+
+    <!-- Generate the R.java file for this project's resources. -->
+    <target name="resource-src" depends="dirs">
+        <echo>Generating R.java || Manifest.java from the resources</echo>
+            <exec executable="${aapt}" failonerror="true">
+            <arg value="package" />
+            <arg value="-m" />
+            <arg value="-J" />
+            <arg path="${gen-folder}" />
+            <arg value="-M" />
+            <arg path="AndroidManifest.xml" />
+            <arg value="-S" />
+            <arg path="${resource-folder}" />
+            <arg value="-I" />
+            <arg path="${android-jar}" />
+        </exec>
+        <copy overwrite="true" file="gen/com/fsck/k9/R.java" tofile="gen/com/android/email/R.java">
+            <filterset begintoken="package " endtoken=";">
+                <filter token="com.fsck.k9" value="package com.android.email;"/>
+            </filterset>
+        </copy>
+    </target>
+
+    <!-- Compile -->
+    <target name="build-eclipse-compiler" description="compile project with Eclipse compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+
+    <!-- Compile this project's .java files into .class files. -->
+    <target name="compile" depends="resource-src">
+        <javac encoding="ascii" target="1.6" debug="true" extdirs="" destdir="${out-classes}" bootclasspathref="android.target.classpath">
+            <src path="${source-folder}" />
+            <src path="${gen-folder}" />
+            <classpath>
+                <fileset dir="${external-libs-folder}" includes="*.jar"/>
+                <fileset dir="${compile-only-libs-folder}" includes="*.jar"/>
+                <fileset dir="${sdk-location}/platforms/android-1.6/" includes="**/*.jar"/>
+                <pathelement path="${main-out-classes}"/>
+            </classpath>
+        </javac>
+    </target>
+    
+    <!-- Compile Tests -->
+
+    <!-- Build -->
+    <target name="build-subprojects"/>
+
+    <target name="build-project" depends="init">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin/classes" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Unique Moments.classpath"/>
+        </javac>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin/classes" source="${source}" target="${target}">
+            <src path="gen"/>
+            <classpath refid="Unique Moments.classpath"/>
+        </javac>
+    </target>
+
+    <target name="build-refprojects" description="Build all projects which reference this project. Useful to propagate changes."/>
+
+    <target name="build" depends="build-subprojects,build-project"/>
+
+    <!-- Convert this project's .class files into .dex files. -->
+    <target name="dex" depends="compile">
+        <apply executable="${dx}" failonerror="true" parallel="true">
+            <arg value="-JXmx1024m" />
+            <arg value="--dex" />
+            <arg value="--output=${intermediate-dex-location}" />
+            <arg path="${out-classes-location}" />
+            <fileset dir="${external-libs-folder}" includes="*.jar"/>
+        </apply>
+    </target>
+    
+    <target name="package-resources">
+        <echo>Packaging resources</echo>
+        <aaptexec executable="${aapt}"
+        command="package"
+        manifest="AndroidManifest.xml"
+        resources="${resource-folder}"
+        assets="${asset-folder}"
+        androidjar="${android-jar}"
+        outfolder="${out-folder}"
+        basename="${ant.project.name}" />
+    </target>
+
+    <!-- Package the application and sign it with a debug key. This is the default target when building. It is used for debug. -->
+    <target name="debug" depends="dex, package-resources">
+        <apkbuilder
+            outfolder="${out-folder}"
+            basename="${ant.project.name}"
+            signed="true"
+            verbose="false">
+            <file path="${intermediate-dex}" />
+            <sourcefolder path="${source-folder}" />
+            <jarfolder path="${external-libs-folder}" />
+            <nativefolder path="${native-libs-folder}" />
+        </apkbuilder>
+    </target>
+
+    <!-- Package the application without signing it. This allows for the application to be signed later with an official publishing key. -->
+    <target name="release" depends="dex, package-resources">
+        <apkbuilder
+        outfolder="${out-folder}"
+        basename="${ant.project.name}"
+        signed="false"
+        verbose="false">
+            <file path="${intermediate-dex}" />
+            <sourcefolder path="${source-folder}" />
+            <jarfolder path="${external-libs-folder}" />
+            <nativefolder path="${native-libs-folder}" />
+        </apkbuilder>
+        <echo>Signing ${out-unsigned-package}</echo>
+        <exec executable="jarsigner" failonerror="true">
+            <arg value="-verbose" />
+            <arg value="-storepass" />
+            <arg value="${env.jarpass}" />
+            <arg value="-signedjar" />
+            <arg value="${out-signed-package}" />
+            <arg value="${out-unsigned-package}" />
+            <arg value="fsckcom" />
+        </exec>
+    </target>
+
+    <!-- create javadoc in ${javadoc-dir} -->
+    <target name="javadoc" description="build javadoc">
+        <mkdir dir="${javadoc-dir}"/>
+        <javadoc
+            destdir="${javadoc-dir}"
+            doctitle="Unique Moments"
+            verbose="on"
+            use="true"
+            classpath="${env.ANDROID_HOME}/platforms/${target}/android.jar"
+            sourcepath="gen;src"
+            linkoffline="http://d.android.com/reference ${env.ANDROID_HOME}/docs/reference/"
+        />
+    </target>
+    
+    <!-- Install the package on the default emulator -->
+    <target name="install" depends="debug">
+        <echo>Installing ${out-debug-package} onto default emulator...</echo>
+        <exec executable="${adb}" failonerror="true">
+            <arg value="install" />
+            <arg path="${out-debug-package}" />
+        </exec>
+    </target>
+
+    <target name="reinstall" depends="debug">
+        <echo>Installing ${out-debug-package} onto default emulator...</echo>
+        <exec executable="${adb}" failonerror="true">
+            <arg value="install" />
+            <arg value="-r" />
+            <arg path="${out-debug-package}" />
+        </exec>
+    </target>
+
+    <!-- Uinstall the package from the default emulator -->
+    <target name="uninstall">
+        <echo>Uninstalling ${application-package} from the default emulator...</echo>
+        <exec executable="${adb}" failonerror="true">
+            <arg value="uninstall" />
+            <arg path="${application-package}" />
+        </exec>
+    </target>
+
+    <target name="clean">
+        <delete dir="${out-folder}" />
+        <delete dir="${gen-folder}" />
+    </target>
+</project>
