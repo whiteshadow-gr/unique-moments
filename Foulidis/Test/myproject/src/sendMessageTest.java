@@ -28,66 +28,7 @@ public class sendMessageTest extends UiAutomatorTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-/* Kanoume eisagogi enos contact sto kinito me onoma to opio giortazei simera.
- * 
- * 
- * 
- * 		
- */
-		
-		/*File file = new File("si_en.xml");
-		
-		if (!file.exists())
-		{
-			URL url = new URL("http://www.eortologio.gr/rss/si_en.xml");
-			ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-			FileOutputStream fos = new FileOutputStream("si_en.xml");
-			fos.getChannel().transferFrom(rbc, 0, 1 << 24);
-		}
-	    
-		else
-		{
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			org.w3c.dom.Document document = builder.parse(file);
-			org.w3c.dom.Element root = document.getDocumentElement();
-			NodeList list = root.getElementsByTagName("title");
-	       
-	        NodeList subList = list.item(2).getChildNodes();
-	        String s = subList.item(0).getNodeValue();
-	       
-	        if (!s.isEmpty())
-	        {
-	        ArrayList<String> aa = new ArrayList<String>();
-	        aa.addAll(Arrays.asList(s.split(":")));
-	        aa.remove(0);
-	        String listString = "";
-	        for (String ss : aa)
-	        {
-	            listString += ss + "\t";
-	        }
-	        
-	        aa.clear();
-	        aa.addAll(Arrays.asList(listString.split(",")));
-	        
-	        
-	        
-	        String contactName = aa.get(0).replaceAll("\\s","");
-	        
-	        //clear all contacts
-	      Runtime.getRuntime().exec("adb shell pm clear com.android.providers.contacts");
-	      
-	      
-	      //add contact
-	      
-	      
-	      Runtime.getRuntime().exec("adb shell am start -a android.intent.action.INSERT -t vnd.android.cursor.dir/contact  " +
-	      		"-e name "+contactName+" -e phone '6975829680'");
-	        }
-			
-		 }
-			*/
-		
+
 		
 		}
 	
