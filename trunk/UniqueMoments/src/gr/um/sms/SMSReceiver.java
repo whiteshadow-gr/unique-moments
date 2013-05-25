@@ -1,5 +1,6 @@
 package gr.um.sms;
 
+import gr.um.interfaces.ISMSReceiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +8,7 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
-public class SMSReceiver extends BroadcastReceiver 
+public class SMSReceiver extends BroadcastReceiver implements ISMSReceiver
 {
 
 	@Override
@@ -39,5 +40,12 @@ public class SMSReceiver extends BroadcastReceiver
 			broadcastIntent.putExtra("sms", str);
 			context.sendBroadcast(broadcastIntent);
 		}
+	}
+
+	@Override
+	public void receiveSms(Context context, Intent intent) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

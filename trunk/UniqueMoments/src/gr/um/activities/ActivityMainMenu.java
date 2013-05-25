@@ -1,10 +1,15 @@
 package gr.um.activities;
 
-import gr.um.controllers.ControllerContactsDB;
+import gr.um.database.ContactDBTypes;
+import gr.um.database.ContactsDBFactory;
+import gr.um.database.ControllerContactsDB;
+import gr.um.interfaces.IDatabase;
 import gr.um.uniquemoments.R;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -20,14 +25,15 @@ public class ActivityMainMenu extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
-		ControllerContactsDB data = new ControllerContactsDB(this);
+		IDatabase data =new ContactsDBFactory(getApplicationContext()).getInstance(ContactDBTypes.CONTACTS_SQLITE_DATABASE);
+		ControllerContactsDB data1 = new ControllerContactsDB(this);
+		
 		
 		ContentResolver cr = getContentResolver();
 	 	boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 	    if(firstrun)
 	    {
-	    	//Caution 2 initializeDatabase apo 2 diaforetika arxeia, controllerDatesDB kai ControllesContactsDB. Ta dates ta xreiazomaste????
-	    	data.initializeDatabase(data.getWritableDatabase());
+	    	data.initializeDatabase(data1.getWritableDatabase());
 	    	data.importPhonebookData(cr);
 	    }
 	    

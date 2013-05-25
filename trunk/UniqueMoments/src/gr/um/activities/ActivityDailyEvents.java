@@ -1,9 +1,12 @@
 package gr.um.activities;
 
 import gr.um.contacts.ImportantContactsFinder;
-import gr.um.controllers.ControllerContactsDB;
-import gr.um.controllers.ControllerFindEvents;
+import gr.um.database.ContactDBTypes;
+import gr.um.database.ContactsDBFactory;
+import gr.um.database.ControllerContactsDB;
+import gr.um.database.ControllerEventReader;
 import gr.um.entities.Contact;
+import gr.um.interfaces.IDatabase;
 import gr.um.uniquemoments.R;
 
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 	    
 	    ArrayList <String> newNamesRSS = new ArrayList <String>();
 		
-	    ControllerFindEvents fec = new ControllerFindEvents();
+	    ControllerEventReader fec = new ControllerEventReader();
 	    newNamesRSS = fec.getimportantNames();
 	    
 	    listview = (ListView)findViewById(R.id.listViewImportantContacts); 
@@ -45,8 +48,11 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 		ArrayList <Contact> contactsDB = new ArrayList <Contact>();
 		ArrayList <Contact> contactsToShow = new ArrayList <Contact>();
 		
-		ControllerContactsDB db = new ControllerContactsDB(this);
-		contactsDB=db.getContacts();
+		//ControllerContactsDB db = new ControllerContactsDB(this);
+		
+		 IDatabase data =new ContactsDBFactory(getApplicationContext()).getInstance(ContactDBTypes.CONTACTS_SQLITE_DATABASE);
+		 
+		contactsDB=data.getContacts();
 		
 		ImportantContactsFinder finder = new ImportantContactsFinder();
 		contactsToShow = finder.findContacts(contactsDB, newNamesRSS);

@@ -23,10 +23,14 @@ public class EortologioEventReaderTest extends InstrumentationTestCase
 	{
 		
 		ArrayList <String> expected = new ArrayList <String>();
-		expected.add("Emile");
+		expected.add("no widely known nameday");
 	
 		ArrayList <String> actual=new ArrayList <String>();
 		actual = eortologio.getRSSNames();
+		for(int i = 0; i<actual.size(); i++)
+		{
+			actual.set(i,actual.get(i).trim());
+		}
 		
 		
 		assertEquals(actual,expected);
@@ -38,7 +42,7 @@ public class EortologioEventReaderTest extends InstrumentationTestCase
 		
 		listActual = eortologio.retrieveRSSFeed(listActual);
 		
-		String expected = "today 22/5 : Emile (source : www.namedays.gr)";
+		String expected = "today 23/5 :  no widely known nameday (source : www.namedays.gr)";
 		String actual = listActual.get(0).title;
 		
 		assertEquals(expected, actual);

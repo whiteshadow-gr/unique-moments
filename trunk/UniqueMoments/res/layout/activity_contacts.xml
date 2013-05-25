@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,41 +11,34 @@
 
     <EditText
         android:id="@+id/editTextSearchName"
-        android:layout_width="180dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-
-        <requestFocus />
-    </EditText>
+        android:ems="10" />
 
     <Button
         android:id="@+id/buttonSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="120dp"
-        android:layout_alignBaseline="@id/editTextSearchName"
-        android:layout_alignBottom="@id/editTextSearchName"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_x="158dp"
+        android:layout_y="-6dp"
         android:onClick="clear"
         android:text="Clear" />
+
+    <ListView
+        android:id="@+id/listViewContacts"
+        android:layout_width="274dp"
+        android:layout_height="328dp"
+        android:layout_x="7dp"
+        android:layout_y="86dp" >
+    </ListView>
 
     <Button
         android:id="@+id/buttonrefresh"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@id/buttonSearch"
-        android:layout_below="@id/buttonSearch"
-        android:onClick="refreshContacts"
-        android:text="Refresh" />
-
-    <ListView
-        android:id="@+id/listViewContacts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignRight="@id/buttonSearch"
-        android:layout_alignLeft="@id/editTextSearchName"
-        android:layout_below="@id/buttonrefresh" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_x="159dp"
+        android:layout_y="36dp"
+        android:text="Refresh"
+        android:onClick="refreshContacts" />
         
-</RelativeLayout>
+</AbsoluteLayout>
