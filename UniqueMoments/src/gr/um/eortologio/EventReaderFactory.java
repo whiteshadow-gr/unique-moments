@@ -13,7 +13,7 @@ public class EventReaderFactory
 		case EORTOLOGIO_EVENT_READER_GR:
 			return new EortologioEventReader("http://www.eortologio.gr/rss/si_el.xml");
 		case TEST_EVENT_READER:
-			return new TestEventReader();
+			return new MockEventReader();
 		default:
 			return new EortologioEventReader("http://www.eortologio.gr/rss/si_en.xml");
 		}

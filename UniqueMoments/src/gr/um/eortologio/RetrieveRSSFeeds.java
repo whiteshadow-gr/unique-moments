@@ -1,7 +1,7 @@
 package gr.um.eortologio;
 
 import gr.um.activities.ActivityNotification;
-import gr.um.controllers.ControllerFindEvents;
+import gr.um.database.ControllerEventReader;
 import gr.um.entities.RSSItem;
 import gr.um.interfaces.ICelebrationEventReader;
 
@@ -40,14 +40,12 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
 	@Override
     protected Void doInBackground(Void... params) 
 	{
-		 ICelebrationEventReader reader = 
-				 //EventReaderFactory.getInstance(EventReaderTypes.EORTOLOGIO_EVENT_READER_EN);
-		 EventReaderFactory.getInstance(EventReaderTypes.EORTOLOGIO_EVENT_READER_EN);
+		ICelebrationEventReader reader = EventReaderFactory.getInstance(EventReaderTypes.EORTOLOGIO_EVENT_READER_EN);
 		
-		 ControllerFindEvents controller = new ControllerFindEvents(reader);
-       int numOfPeopleCelebrating = controller.getHowManyCelebrate();
-       
-       
+		ControllerEventReader controller = new ControllerEventReader(reader);
+        int numOfPeopleCelebrating = controller.getHowManyCelebrate();
+        
+        
             
 		if(!(numOfPeopleCelebrating == 0))
 		{

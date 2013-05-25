@@ -1,7 +1,14 @@
 package gr.um.activities;
 
-import gr.um.controllers.ControllerContactsDB;
+import gr.um.database.ContactDBTypes;
+import gr.um.database.ContactsDBFactory;
+import gr.um.database.ControllerContactsDB;
+import gr.um.database.ControllerEventReader;
 import gr.um.entities.Contact;
+import gr.um.eortologio.EventReaderFactory;
+import gr.um.eortologio.EventReaderTypes;
+import gr.um.interfaces.ICelebrationEventReader;
+import gr.um.interfaces.IDatabase;
 import gr.um.uniquemoments.R;
 
 import java.util.ArrayList;
@@ -31,7 +38,7 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 	private EditText editTextSearchName = null;
 	public ListView listview;
 	public ArrayAdapter <String> adapter;
-	
+
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------//
 	
@@ -43,10 +50,14 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		listview = (ListView)findViewById(R.id.listViewContacts); 
 		adapter = new ArrayAdapter <String> (this, android.R.layout.simple_list_item_1, 0);
 		listview.setAdapter(adapter);
-		ControllerContactsDB db = new ControllerContactsDB (this);
+		
+		IDatabase data =new ContactsDBFactory(getApplicationContext()).getInstance(ContactDBTypes.CONTACTS_SQLITE_DATABASE);
+				
+		
+		//ControllerContactsDB db = new ControllerContactsDB (this);
 		
 		ArrayList <Contact> contactsDB = new ArrayList <Contact>();
-		contactsDB=db.getContacts();
+		contactsDB = data.getContacts();
 		
 		if(contactsDB.size() != 0)
 		{
@@ -61,7 +72,6 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		editTextSearchName.addTextChangedListener(filterTextWatcher);
 	}
 	
-
 	@Override
 	protected void onDestroy() 
 	{

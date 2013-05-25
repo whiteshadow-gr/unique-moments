@@ -50,14 +50,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int buttonSearch=0x7f090001;
         public static final int buttonSettings=0x7f09000c;
         public static final int buttonShowEvents=0x7f090019;
-        public static final int buttonrefresh=0x7f090002;
+        public static final int buttonrefresh=0x7f090003;
         public static final int editText4=0x7f090016;
         public static final int editTextEventDate=0x7f090014;
         public static final int editTextEventDescription=0x7f090017;
         public static final int editTextEventName=0x7f090010;
         public static final int editTextEventType=0x7f090012;
         public static final int editTextSearchName=0x7f090000;
-        public static final int listViewContacts=0x7f090003;
+        public static final int listViewContacts=0x7f090002;
         public static final int listViewImportantContacts=0x7f090005;
         public static final int msgTxt=0x7f090008;
         public static final int sendBtn=0x7f090007;
