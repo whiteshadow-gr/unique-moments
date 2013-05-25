@@ -1,16 +1,18 @@
 package gr.um.eortologio;
 
-import java.util.ArrayList;
-import android.os.AsyncTask;
+import gr.um.activities.ActivityNotification;
+import gr.um.database.ControllerEventReader;
 import gr.um.entities.RSSItem;
-import gr.um.uniquemoments.ActivityDailyEvents;
-import gr.um.uniquemoments.ActivityNotification;
+import gr.um.interfaces.ICelebrationEventReader;
+
+import java.util.ArrayList;
+
+import android.os.AsyncTask;
 
 //-----------------------------------------------------------------------------------------------------------------------------------------//
 
 public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
  {
-	
 	public ArrayList<RSSItem> itemlist = null;
 	public ActivityNotification activityDailyEvents = null ;
 	
@@ -18,7 +20,6 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
 	
 	public RetrieveRSSFeeds() 
 	{
-		
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,27 +40,21 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
 	@Override
     protected Void doInBackground(Void... params) 
 	{
-       String importantNames = FindEventsController.getImportantNames(this.activityDailyEvents.getApplicationContext());
-     
+		ICelebrationEventReader reader = EventReaderFactory.getInstance(EventReaderTypes.EORTOLOGIO_EVENT_READER_EN);
+		
+		ControllerEventReader controller = new ControllerEventReader(reader);
+        int numOfPeopleCelebrating = controller.getHowManyCelebrate();
+        
+        
             
-		if(!importantNames.equals("0"))
+		if(!(numOfPeopleCelebrating == 0))
 		{
-			if(importantNames.equals("error"))
-			{
-				this.activityDailyEvents.notifyfunc(importantNames);
-			}
-			else
-			{
-				this.activityDailyEvents.notifyfunc("You have "+importantNames+" people to say Happy Name Day today!");
-			}
-				
+			this.activityDailyEvents.notifyfunc("Today "+Integer.toString(numOfPeopleCelebrating)+" names are celebrating!");	
 		}
 		else
 		{
 			this.activityDailyEvents.notifyfunc("No name days today!");
 		}
-      
-		
         return null;
      }
       
@@ -77,7 +72,6 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
      @Override
      protected void onPostExecute(Void result) 
      {
-         // setListAdapter(rssadaptor);     
          super.onPostExecute(result);
      }
       

@@ -1,5 +1,6 @@
 package gr.um.sms;
 
+import gr.um.interfaces.ISMSReceiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +8,12 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
-public class SMSReceiver extends BroadcastReceiver {
+public class SMSReceiver extends BroadcastReceiver implements ISMSReceiver
+{
 
 	@Override
-	public void onReceive(Context context, Intent intent) {
+	public void onReceive(Context context, Intent intent) 
+	{
 		// TODO Auto-generated method stub
 		Bundle bundle = intent.getExtras();
 		SmsMessage[] messages = null;
@@ -20,7 +23,6 @@ public class SMSReceiver extends BroadcastReceiver {
 		{
 			Object[] pdus = (Object[]) bundle.get("pdus");
 			messages = new SmsMessage[pdus.length];
-			
 			for (int i = 0; i < messages.length; i++)
 			{
 				messages[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
@@ -38,5 +40,12 @@ public class SMSReceiver extends BroadcastReceiver {
 			broadcastIntent.putExtra("sms", str);
 			context.sendBroadcast(broadcastIntent);
 		}
+	}
+
+	@Override
+	public void receiveSms(Context context, Intent intent) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
