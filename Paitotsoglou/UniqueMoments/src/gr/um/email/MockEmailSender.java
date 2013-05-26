@@ -2,6 +2,7 @@ package gr.um.email;
 
 import gr.um.interfaces.IEmail;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class MockEmailSender implements IEmail
 {
@@ -13,18 +14,27 @@ public class MockEmailSender implements IEmail
 	
 	public MockEmailSender()
 	{
-		ActualMessage= "Geia sou";
-		MailHeader="Message form Unique_Moments";
-		whereto = "tpaito@yahoo.com";
+		
 	}
 	
 
 	@Override
 	public void sendEmail(Intent emailIntent) 
 	{	
+		MailHeader = emailIntent.getStringExtra("android.intent.extra.EMAIL");
+		ActualMessage = emailIntent.getStringExtra("android.intent.extra.SUBJECT");
+		whereto = emailIntent.getStringExtra("android.intent.extra.TEXT");
+	}
+
+	@Override
+	public String[] getIntentData() 
+	{
+		String[] data = new String[3];
+		data[0] = MailHeader;
+		data[1] = ActualMessage;
+		data[2] = whereto;
 		
-		actual[0]= whereto;
-		actual[1]= ActualMessage;
-		actual[2] = MailHeader;
+		return data;
 	}
 }
+
