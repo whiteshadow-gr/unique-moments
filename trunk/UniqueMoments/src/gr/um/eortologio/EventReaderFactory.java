@@ -1,9 +1,20 @@
 package gr.um.eortologio;
 
 import gr.um.interfaces.ICelebrationEventReader;
+import android.content.Context;
 
 public class EventReaderFactory 
 {
+	
+	  private static Context context = null;
+      
+      @SuppressWarnings("static-access")
+      public EventReaderFactory(Context context)
+      {
+              this.context = context;
+      }
+
+	
 	public static ICelebrationEventReader getInstance(EventReaderTypes type) 
 	{
 		switch (type) 
@@ -14,6 +25,8 @@ public class EventReaderFactory
 			return new EortologioEventReader("http://www.eortologio.gr/rss/si_el.xml");
 		case TEST_EVENT_READER:
 			return new MockEventReader();
+		case TEST_MODE:
+			return new EortologioEventReader("http://192.168.2.255:8000/rss/si_en.xml");
 		default:
 			return new EortologioEventReader("http://www.eortologio.gr/rss/si_en.xml");
 		}

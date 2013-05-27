@@ -40,7 +40,7 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
 	@Override
     protected Void doInBackground(Void... params) 
 	{
-		ICelebrationEventReader reader = EventReaderFactory.getInstance(EventReaderTypes.EORTOLOGIO_EVENT_READER_EN);
+		ICelebrationEventReader reader = EventReaderFactory.getInstance(EventReaderTypes.TEST_MODE);
 		
 		ControllerEventReader controller = new ControllerEventReader(reader);
         int numOfPeopleCelebrating = controller.getHowManyCelebrate();

@@ -1,5 +1,9 @@
 package gr.um.activities;
 
+import gr.um.email.EmailBuilder;
+import gr.um.email.EmailSenderFactory;
+import gr.um.email.EmailSenderTypes;
+import gr.um.interfaces.IEmail;
 import gr.um.uniquemoments.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,10 +16,14 @@ import android.widget.EditText;
 public class ActivityEmail extends Activity
 {
 	
-	Button sendEmail;
-	EditText msg;
+	private ActivityEmail act = this;
+	public Button sendEmail;
+	public EditText msg;
 	
 	
+	/**
+	 * onCreate this method initializes the email activity.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -25,28 +33,22 @@ public class ActivityEmail extends Activity
 		sendEmail.setOnClickListener(new View.OnClickListener() 
 		{
 			
+			/**
+			 * onClick this method sends the email if the button that it's conneted pressed
+			 * @param v view
+			 */
 			@Override
 			public void onClick(View v) 
 			{
-				// TODO Auto-generated method stub
+				EmailBuilder builder = new EmailBuilder();
 				msg = (EditText) findViewById(R.id.msgTxt);
 				String message = msg.getText().toString();
-				sendEmail (message);
+				Intent emailIntent = builder.createEmailIntent(message);
+				
+				IEmail sender = EmailSenderFactory.getInstance(EmailSenderTypes.EMAIL_SENDER, act);
+				sender.sendEmail(emailIntent);
 			}
 		});
-	}
-
-	protected void sendEmail(String message) 
-	{
-		// TODO Auto-generated method stub
-		String[] to = new String[]{""};
-		String subject = ("A message from Unique-Moments");
-		Intent emailIntent = new Intent(Intent.ACTION_SEND);
-		emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
-		emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-		emailIntent.putExtra(Intent.EXTRA_TEXT, message);
-		emailIntent.setType("message/rfc822");
-		startActivity(Intent.createChooser(emailIntent, "Email"));
 	}
 
 	@Override

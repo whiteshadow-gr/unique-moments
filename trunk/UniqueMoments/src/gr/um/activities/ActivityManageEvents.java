@@ -9,6 +9,9 @@ import android.view.Menu;
 
 public class ActivityManageEvents extends Activity 
 {
+	/**
+	 * onCreate initializes the activity manage events
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

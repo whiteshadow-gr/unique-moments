@@ -1,50 +1,65 @@
 package gr.um.uniquemoments.test;
 
 import gr.um.entities.RSSItem;
-import gr.um.eortologio.EortologioEventReader;
+import gr.um.eortologio.EventReaderFactory;
+import gr.um.eortologio.EventReaderTypes;
+import gr.um.interfaces.ICelebrationEventReader;
 
 import java.util.ArrayList;
 
-import android.test.InstrumentationTestCase;
+import android.content.Context;
+import android.test.AndroidTestCase;
 
-public class EortologioEventReaderTest extends InstrumentationTestCase 
+public class EortologioEventReaderTest extends AndroidTestCase 
 {
-	private EortologioEventReader eortologio;
+
+	private ICelebrationEventReader reader = null;
+	private Context context = null;
 	
+	@SuppressWarnings("static-access")
 	protected void setUp() throws Exception 
 	{
 		super.setUp();
-		eortologio = new EortologioEventReader("http://www.eortologio.gr/rss/si_en.xml");
+		this.context = getContext();
+		reader = new EventReaderFactory(context).getInstance(EventReaderTypes.TEST_EVENT_READER);
+		
+	}
+
+	public void testRetrieveRSSFeedMock()
+	{
+		String Expectedtitle = "today 17/5 :  Andronikos, Androniki, Iounia, Solon, Solonas, Solohon (source : www.namedays.gr)";
+		ArrayList<RSSItem> list = new ArrayList<RSSItem>();
+		
+		
+		list = reader.retrieveRSSFeed(list);
+		
+		String Actualtitle = list.get(0).title;
+		
+		assertEquals(Expectedtitle, Actualtitle);
+	
+		
+	}
+	
+	public void testgetRSSNames()
+	{
+		ArrayList<String> expectedList = new ArrayList<String>();
+		ArrayList<String> actualList = new ArrayList<String>();
+		
+		expectedList.add("Andronikos");
+		expectedList.add("Androniki");
+		expectedList.add("Iounia");
+		expectedList.add("Solon");
+		expectedList.add("Solonas");
+		expectedList.add("Solohon");
+		
+		actualList = reader.getRSSNames();
+		
+		assertEquals(expectedList, actualList);
+		
 	}
 
 	
-
-	public void testGetNames() 
-	{
-		
-		ArrayList <String> expected = new ArrayList <String>();
-		expected.add("no widely known nameday");
 	
-		ArrayList <String> actual=new ArrayList <String>();
-		actual = eortologio.getRSSNames();
-		for(int i = 0; i<actual.size(); i++)
-		{
-			actual.set(i,actual.get(i).trim());
-		}
-		
-		
-		assertEquals(actual,expected);
-	}
 	
-	public void testRetrieveRSSFeed()
-	{
-		ArrayList <RSSItem> listActual = new ArrayList<RSSItem>();
-		
-		listActual = eortologio.retrieveRSSFeed(listActual);
-		
-		String expected = "today 23/5 :  no widely known nameday (source : www.namedays.gr)";
-		String actual = listActual.get(0).title;
-		
-		assertEquals(expected, actual);
-	}
+	
 }

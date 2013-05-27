@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
 
     <application
         android:allowBackup="true"
@@ -71,6 +72,11 @@
             android:name="gr.um.activities.ActivityEmail"
             android:label="Send Email" >
         </activity>
+        <activity
+            android:name="gr.um.activities.ActivityCreateContact"
+            android:label="@string/title_activity_activity_create_contact" >
+        </activity>
+        
         
         <receiver  android:process=":remote" android:name="Alarm"></receiver>
         <receiver android:name="gr.um.alarm.AutoStart">

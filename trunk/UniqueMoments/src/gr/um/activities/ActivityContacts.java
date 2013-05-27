@@ -42,6 +42,9 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 	
 	//-------------------------------------------------------------------------------------------------------------------------------------//
 	
+	/**
+	 * onCreate this method initialize the contacts activity.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -88,6 +91,12 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		return true;
 	}
 	
+	/**
+	 * onCreateContextMenu this method has the menus of the long click
+	 * @param menu the context of menu
+	 * @param v the view
+	 * @param menuinfo the info of the menu
+	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
 	{
@@ -102,7 +111,9 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		mMenu.add(Menu.NONE, 5, Menu.NONE, "Send E-mail");
 	}
 	
-	
+	/**
+	 * onCOntextItemSelected this method sets the actions of each menu of the onlongclick
+	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) 
 	{		
@@ -118,7 +129,8 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 				Toast.makeText(getApplicationContext(), "Delete Contact", Toast.LENGTH_SHORT).show();
 				break;
 			case 3:
-				Toast.makeText(getApplicationContext(), "Create New Contact", Toast.LENGTH_SHORT).show();
+				Intent intentCreateContact = new Intent(this, ActivityCreateContact.class);
+				startActivity(intentCreateContact);				
 				break;
 			case 4:
 				Intent intentSMS = new Intent(this, ActivitySMS.class);
@@ -132,12 +144,21 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		return super.onContextItemSelected(item);
 	}
 	
+	/**
+	 * clear clear used in order to clear the edittext from any letters.
+	 * @param view view is needed in order to call the method via a button
+	 */
 	public void clear(View view)
 		{
 			EditText myEditText = (EditText)findViewById(R.id.editTextSearchName);
 			myEditText.setText("");	
 		}
 	
+	/**
+	 * refreshContacts must be called when a new contact is added, from the app itself or even from the person app of android os,
+	 * in order for the listview to add the new contact(s) 
+	 * @param view the view is needed in order to call the method via a button
+	 */
 	public void refreshContacts(View view)
 	{
 		ContentResolver contentResolver = getContentResolver();
@@ -147,6 +168,10 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		startActivity(getIntent());
 	}
 	
+
+	/**
+	 * onLongClick this method implements onLongCLick on our app in this activity
+	 */
 	@Override
 	public boolean onLongClick(View v) 
 	{
@@ -154,6 +179,9 @@ public class ActivityContacts extends Activity implements OnLongClickListener
 		return false;
 	}
 	
+	/**
+	 * filterTectWatcher is the method that listview is refreshing while typing in edittext. 
+	 */
 	private TextWatcher filterTextWatcher = new TextWatcher() 
 	{
 

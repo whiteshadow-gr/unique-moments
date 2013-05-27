@@ -25,8 +25,8 @@ public class ActivityRssReader extends ListActivity
 	private ArrayList<RSSItem> itemlist = null;    
   //---------------------------------------------------------------------------------------------------------------------------------------//
     
-    /*
-     * Constructor
+    /**
+     * ActivityRssReader() Constructor with no parameters
      */
     public ActivityRssReader() 
     {
@@ -44,7 +44,14 @@ public class ActivityRssReader extends ListActivity
 	    new RetrieveRSSFeeds().execute();  
 	}
   
-    public static String retrieveRSSFeed(String urlToRssFeed,ArrayList<RSSItem> list)
+    /**
+     * retrieveRSSFeed retrieveRSSFeed is called at the begining of the app start up
+     * in order to retrieve the rss.
+     * @param urlToRssFeed urlToRssFeed is the URL of the site we want to connect and read the rss
+     * @param list is the list of names
+     * @return String returns the string of rss feed
+     */
+	public static String retrieveRSSFeed(String urlToRssFeed,ArrayList<RSSItem> list)
     {
     	//sunartisi i opoia ulopoiei tin sundesi sto rssfeed.
 	    try

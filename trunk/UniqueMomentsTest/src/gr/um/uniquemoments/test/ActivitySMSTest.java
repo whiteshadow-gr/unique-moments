@@ -1,6 +1,5 @@
 package gr.um.uniquemoments.test;
 
-import gr.um.activities.ActivityMainMenu;
 import gr.um.activities.ActivitySMS;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
@@ -35,7 +34,6 @@ ActivityInstrumentationTestCase2<ActivitySMS>
 		assertTrue(sendSMSTest.hasOnClickListeners());
 		assertFalse(sendSMSTest.hasSelection());
 		assertTrue(sendSMSTest.hasFocusable());
-		assertTrue(sendSMSTest.callOnClick());
 		assertTrue(sendSMSTest.isClickable());
 		assertFalse(sendSMSTest.isDrawingCacheEnabled());
 		

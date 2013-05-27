@@ -30,6 +30,10 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 	public ListView listview;
 	public ArrayAdapter <String> adapter;
 	
+	/**
+	 * onCreate this method initializes the activity
+	 */
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -50,7 +54,7 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 		
 		//ControllerContactsDB db = new ControllerContactsDB(this);
 		
-		 IDatabase data =new ContactsDBFactory(getApplicationContext()).getInstance(ContactDBTypes.CONTACTS_SQLITE_DATABASE);
+		IDatabase data =new ContactsDBFactory(getApplicationContext()).getInstance(ContactDBTypes.CONTACTS_SQLITE_DATABASE);
 		 
 		contactsDB=data.getContacts();
 		
@@ -76,6 +80,12 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 		return true;
 	}
 	
+	/**
+	 * onCreateContextMenu this method has the menus of the long click
+	 * @param menu the context of menu
+	 * @param v the view
+	 * @param menuinfo the info of the menu
+	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) 
 	{
@@ -87,6 +97,9 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 		mMenu.add(Menu.NONE, 2, Menu.NONE, "Send E-mail");
 	}
 	
+	/**
+	 * onCOntextItemSelected this method sets the actions of each menu of the onlongclick
+	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) 
 	{		
@@ -114,6 +127,9 @@ public class ActivityDailyEvents extends Activity implements OnLongClickListener
 			myEditText.setText("");	
 		}
 	
+	/**
+	 * onLongClick this method implements onLongCLick on our app in this activity
+	 */
 	@Override
 	public boolean onLongClick(View v) 
 	{
