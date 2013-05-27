@@ -19,7 +19,10 @@ import android.view.View;
 public class ActivityMainMenu extends Activity 
 {
 	public static int counter = 0;
-
+	
+	/**
+	 * onCreate this method initializes the activity main menu
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -28,7 +31,9 @@ public class ActivityMainMenu extends Activity
 		IDatabase data =new ContactsDBFactory(getApplicationContext()).getInstance(ContactDBTypes.CONTACTS_SQLITE_DATABASE);
 		ControllerContactsDB data1 = new ControllerContactsDB(this);
 		
-		
+		/**
+		 * Initializing the database and the phonebook
+		 */
 		ContentResolver cr = getContentResolver();
 	 	boolean firstrun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true);
 	    if(firstrun)
@@ -55,19 +60,30 @@ public class ActivityMainMenu extends Activity
 		return true;
 	}
 	
+	/**
+	 * goToContacts is used in order to go to activity contacts
+	 * @param view view is needed in order to have this method called by a button
+	 */
 	public void goToContacts(View view)
 	{
 		Intent i = new Intent(this, ActivityContacts.class);
 		startActivity(i);
 	}
 	
+	/**
+	 * goToDailyEvents is used in order to go to activity Daily Events
+	 * @param view view is needed in order to have this method called by a button
+	 */
 	public void goToDailyEvents(View view)
 	{
 		Intent i = new Intent(this, ActivityDailyEvents.class);
 		startActivity(i);
 	}
-		
-		
+				
+	/**
+	 * goToManageEvents is used in order to go to activity manage events
+	 * @param view view is needed in order to have this method called by a button
+	 */
 	public void goToManageEvents(View view)
 	{
 		Intent i = new Intent(this, ActivityManageEvents.class);

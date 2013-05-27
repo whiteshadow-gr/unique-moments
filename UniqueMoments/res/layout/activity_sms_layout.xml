@@ -19,7 +19,7 @@
         android:layout_x="48dp"
         android:layout_y="10dp"
         android:ems="10" 
-        android:text="Number"/>
+        android:hint="Number"/>
 
     <EditText
         android:id="@+id/Message"
@@ -28,7 +28,7 @@
         android:layout_x="51dp"
         android:layout_y="57dp"
         android:ems="10" 
-        android:text="Message">
+        android:hint="Message">
 
         <requestFocus />
     </EditText>
@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_x="120dp"
         android:layout_y="107dp"
-        android:text="Send" />
+        android:text="Send"
+        android:onClick="sendSmsClick"/>
 
 </AbsoluteLayout>

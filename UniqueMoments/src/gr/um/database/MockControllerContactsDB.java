@@ -6,88 +6,92 @@ import gr.um.interfaces.IDatabase;
 import java.util.ArrayList;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-public class MockControllerContactsDB implements IDatabase
+public class MockControllerContactsDB  implements IDatabase
 {
-	private ArrayList<Contact> contactsDB;
+	 static String dbName = "uniquemoments_DB_Mock";
+	 static final String ContactsTable = "Contacts";
+	 static final String colID = "_ContactsID";
+	 static final String colName = "ContactsName";
+	 static final String colPhone = "ContactsPhone";
+	 
+	 private ArrayList<Contact> contactsDB;
+	 
 	
-	public void initializeDatabase(ArrayList<Contact> contacts)
-	{
-		contactsDB = contacts;
-	}
+	 public void MockInitiallize(ArrayList<Contact> contacts)
+	 {
+	  contactsDB = contacts;
+	 }
 	
-	public MockControllerContactsDB()
-	{
-		contactsDB = new ArrayList<Contact>();
-	}
+	  //contactsDB = new ArrayList<Contact>();
+	 public MockControllerContactsDB(Context context)
+	 {
+	  //super(context, dbName, null,01);
+	  
+	 }
+	 public MockControllerContactsDB()
+	 {
+	  contactsDB = new ArrayList<Contact>();
+	 }
+	 @Override
+	 public boolean deleteContact(Contact myContact) {
+	  // TODO Auto-generated method stub
+	  return false;
+	 }
 	
-	public boolean addContact(Contact myContact)
-	{
-		if(myContact==null)
-		{
-			return false;
-		}
-		
-		else
-		{
-			contactsDB.add(myContact);
-			return true;
-		}
-	}
+	 @Override
+	 public boolean editContact(Contact myContact) 
+	 {
+	  
+	  return false;
+	 }
 	
-	public ArrayList <Contact> getContacts()
-	{
-		return contactsDB;
-	}
+	 @Override
+	 public ArrayList<Contact> getContacts()
+	 {
+	  int contactsDBsize = contactsDB.size();
+	  if (contactsDBsize>0 )
+	    return contactsDB;  
+	  else
+	   return null;
+	 }
 	
-	public boolean deleteContact(Contact myContact)
-	{
-		for(int i = 0; i<contactsDB.size(); i++)
-		{
-			if(contactsDB.get(i).getID().equals(myContact.getID()))
-			{
-				contactsDB.remove(i);
-				return true;
-			}
-		}
-		
-		return false;
-	}
+	 @Override
+	 public boolean importPhonebookData(ContentResolver contentResolver)
+	 { 
+	  MockControllerContactsDB asd = new MockControllerContactsDB();
+	  Contact myContact = new Contact();
+	  if (contentResolver.equals(null))
+		  return false;
+	  else
+	  {
+	   asd.addContact(myContact);
+	   	return true;
+	  }
+	   
+	 }
 	
-	public boolean editContact(Contact myContact)
-	{
-		boolean result=false;
-		for(int i = 0; i<contactsDB.size(); i++)
-		{
-			if(contactsDB.get(i).getID().equals(myContact.getID()))
-			{
-				contactsDB.set(i, myContact);
-				result = true;
-			}
-		}
-		return result;
-	}
-	public boolean erraseAllContacts()
-	{
-		contactsDB.clear();
-		
-		if(contactsDB.isEmpty())
-			return false;
-		else
-			return true;
-	}
-
-	@Override
-	public boolean importPhonebookData(ContentResolver contentResolver) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void initializeDatabase(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	 @Override
+	 public  void initializeDatabase(SQLiteDatabase db) 
+	 {
+	  // TODO Auto-generated method stub
+	  
+	 }
+	
+	 @Override
+	 public boolean addContact(Contact myContact)
+	 {
+	  
+	  if(myContact.getID().equals("") || myContact.getName().equals("") || myContact.getPhone().equals(""))
+	   return false;
+	  else
+	  {
+	   contactsDB.add(myContact);
+	   return true;
+	  }
+	 }
+ 
 }
+

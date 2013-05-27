@@ -18,6 +18,9 @@ public class ActivityNotification extends ListActivity
 	   
 	//-------------------------------------------------------------------------------------------------------------------------------------//
     
+	/**
+	 * onCreate initializing notification
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -29,6 +32,10 @@ public class ActivityNotification extends ListActivity
 	    startActivity(i);   
 	}
 		 
+	/**
+	 * notifyfunc is the method that displays the notification on the upperside of the screen. 
+	 * @param namedays is the string that will appear.
+	 */
 	@SuppressWarnings("deprecation")
 	public void notifyfunc(String namedays) 
 	{		

@@ -1,4 +1,4 @@
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/AbsoluteLayout1"
     android:layout_width="match_parent"
@@ -11,17 +11,8 @@
 
     <ListView
         android:id="@+id/listViewImportantContacts"
-        android:layout_width="262dp"
-        android:layout_height="327dp"
-        android:layout_x="12dp"
-        android:layout_y="78dp" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
     </ListView>
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="172dp"
-        android:layout_height="wrap_content"
-        android:layout_x="76dp"
-        android:layout_y="18dp" />
-
-</AbsoluteLayout>
+</RelativeLayout>
