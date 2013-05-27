@@ -20,6 +20,7 @@ import com.android.uiautomator.core.UiSelector;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
 
+@SuppressWarnings("unused")
 public class sendMessageTest extends UiAutomatorTestCase {
 	
 	
@@ -65,14 +66,17 @@ public class sendMessageTest extends UiAutomatorTestCase {
 		}
 		
 		
-		public void testbOpenActivity() throws UiObjectNotFoundException
+		public void testbOpenActivity() throws UiObjectNotFoundException, InterruptedException
 		
 		
 		{
+			
 			UiObject notishade = new UiObject(new UiSelector().className("android.widget.FrameLayout"));
-			notishade.swipeDown(3);
-			UiObject button = new UiObject(new UiSelector().className("android.view.View"));
+			//notishade.swipeDown(3);
+			
+			UiObject button = new UiObject(new UiSelector().text("Daily Events"));
 			button.clickAndWaitForNewWindow();
+			
 			assertTrue(getUiDevice().getCurrentActivityName().equals("ActivityDailyEvents") );
 			
 			
@@ -92,6 +96,11 @@ public class sendMessageTest extends UiAutomatorTestCase {
 			button2.longClick();
 			UiObject button3 = new UiObject(new UiSelector().text("Send SMS"));
 			button3.click();
+			UiObject numField = new UiObject (new UiSelector().index(0));
+			numField.setText("6975829680");
+			UiObject messagefield = new UiObject(new UiSelector().index(1));
+			messagefield.setText("hello");
+			button3.click();
 			fail("");
 			
 			
@@ -103,7 +112,7 @@ public void testdSendEmail() throws UiObjectNotFoundException
 			
 			UiObject button2 = new UiObject(new UiSelector().className("android.widget.ListView").childSelector(new UiSelector().className("android.widget.TextView")));
 			button2.longClick();
-			UiObject button3 = new UiObject(new UiSelector().text("Send Email"));
+			UiObject button3 = new UiObject(new UiSelector().text("Send E-mail"));
 			button3.click();
 			fail("");
 			
