@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ActivityContacts" >
+
+    <EditText
+        android:id="@+id/editTextSearchName"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_alignBaseline="@id/editTextSearchName"
+        android:layout_alignBottom="@id/editTextSearchName"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:onClick="clear"
+        android:text="Clear" />
+
+    <Button
+        android:id="@+id/buttonrefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/buttonSearch"
+        android:layout_below="@id/buttonSearch"
+        android:onClick="refreshContacts"
+        android:text="Refresh" />
+
+    <ListView
+        android:id="@+id/listViewContacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignRight="@id/buttonSearch"
+        android:layout_alignLeft="@id/editTextSearchName"
+        android:layout_below="@id/buttonrefresh" >
+    </ListView>
+        
+</RelativeLayout>
