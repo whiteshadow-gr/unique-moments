@@ -105,5 +105,11 @@ public class RSSItem
 		names = title.split("\\(");
 		names = names[0].split(":");
 		names = names[1].split(",");
+		
+		for(int i = 0; i<names.length; i++)
+        {
+                names[i] = names[i].trim();
+        }
+
 	}
 }
