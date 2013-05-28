@@ -27,7 +27,7 @@ public class EventReaderFactory
 		case TEST_EVENT_READER:
 			return new MockEventReader(context);
 		case TEST_MODE:
-			return new EortologioEventReader("http://192.168.2.255:8000/rss/si_en.xml");
+			return new EortologioEventReader("http://192.168.1.117:8000/rss/si_en.xml");
 		default:
 			return new EortologioEventReader("http://www.eortologio.gr/rss/si_en.xml");
 		}
