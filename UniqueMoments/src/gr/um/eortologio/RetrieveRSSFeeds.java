@@ -24,12 +24,11 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	//-------------------------------------------------------------------------------------------------------------------------------------//
 	
-	/*
-	 * This function is responsible for poping the apropriate notification to the user according to how many of
-	 * the user's Contacts have their Name Day today
+	/**
+	 * RetrieveRSSFeeds constructor with one parameter
+	 * @param activityDailyEvents
 	 */
 	public RetrieveRSSFeeds(ActivityNotification activityDailyEvents) 
 	{
@@ -37,15 +36,17 @@ public class RetrieveRSSFeeds extends AsyncTask<Void, Void, Void>
 	    itemlist = new ArrayList<RSSItem>();
 	}
 
+	/**
+	 * doInBackground(Void... params) This function is responsible for poping the apropriate notification to the user according to how many of
+	 * the user's Contacts have their Name Day today
+	 */
 	@Override
     protected Void doInBackground(Void... params) 
 	{
-		ICelebrationEventReader reader = EventReaderFactory.getInstance(EventReaderTypes.TEST_MODE);
+		ICelebrationEventReader reader = EventReaderFactory.getInstance(EventReaderTypes.EORTOLOGIO_EVENT_READER_EN);
 		
 		ControllerEventReader controller = new ControllerEventReader(reader);
         int numOfPeopleCelebrating = controller.getHowManyCelebrate();
-        
-        
             
 		if(!(numOfPeopleCelebrating == 0))
 		{
